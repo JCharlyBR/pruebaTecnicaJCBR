@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>PRUEBA TECNICA JUAN CARLOS BENITEZ REYES</title>
+    <!-- NAVIGATION -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css">
+  </head>
+  <body>
+
+    <!-- navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">INVENTARIO DE PRODUCTOS  ----JUAN CARLOS BENITEZ REYES</a>
+    </nav>
+
+  <div class="container">
+       <div class="row mt-5">
+          <div class="col-md-3">
+              <div class="card">
+                 <div class="card-body">
+                  
+                 <form action="/add" method="POST" onsubmit="return validar()" >
+                
+                     <div class="form-group">
+                       <input type="text" id="nombre" onkeypress="return soloLetras(event)"  name="nombre" placeholder="Nombre Producto" class="form-control" autofocus>
+                     </div>
+                     <div class="form-group">
+                       <input type="text" id="descripcion" name="descripcion" placeholder="Descripcion" class="form-control">
+                     </div>
+                     <div class="form-group">
+                       <input type="text" id="preciocompra" name="preciocompra" placeholder="Precio Compra" class="form-control">
+                     </div>
+                     <div class="form-group">
+                       <input type="text" id="precioventa"  name="precioventa" placeholder="Precio Venta" class="form-control">
+                     </div>
+                     <div class="form-group">
+                      <input type="text" id="stock"  name="stock" placeholder="Stock" class="form-control">
+                     </div>
+           
+                     <button type="submit" class="btn btn-primary" >
+                       REGISTRAR
+                     </button>
+                   </form>
+                  
+                 </div>
+               </div>
+            </div>
+           <div class="col-md-5">
+                <table class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>n°</th>
+                            <th>NOMBRE</th>
+                            <th>DESCRIPCION</th>
+                            <th>PRECIO COMPRA</th>
+                            <th>PRECIO VENTA</th>
+                            <th>CANT EN INVENTARIO</th>
+                            <th>ACCIONES</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                         <% if (data) { %>
+                           <% for (var i = 0; i < data.length; i++) { %>
+                            <tr>
+                              <td><%= (i + 1) %></td>
+                              <td><%= data[i].nombre %></td>
+                              <td><%= data[i].descripcion %></td>
+                              <td><%= data[i].preciocompra %></td>
+                              <td><%= data[i].precioventa %></td>
+                              <td><%= data[i].stock %></td>
+                              <td>
+                                <a href="/delete/<%= data[i].id %>" class="btn btn-danger">ELIMINAR</a>
+                                <a href="/update/<%= data[i].id %>" class="btn btn-warning">OPCIONES</a>
+                              </td>
+                            </tr>
+
+                          
+                            <% } %>
+                          <% } %>
+                        </tbody>
+                      </table>
+
+           </div>
+          
+       </div>
+      </div>
+      <script>
+          function soloLetras(e){
+             key = e.keyCode || e.which;
+             tecla = String.fromCharCode(key).toLowerCase();
+             letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+             especiales = "8-37-39-46";
+      
+             tecla_especial = false
+             for(var i in especiales){
+                  if(key == especiales[i]){
+                      tecla_especial = true;
+                      break;
+                  }
+              }
+              if(letras.indexOf(tecla)==-1 && !tecla_especial){
+                  return false;
+              }
+          }
+          </script>
+      <script>
+       function validar() {
+ //obteniendo el valor que se puso en el campo text del formulario
+    var miCampoTexto1 = document.getElementById("nombre").value;
+		var miCampoTexto2 = document.getElementById("descripcion").value;
+		var miCampoTexto3 = document.getElementById("preciocompra").value;
+		var miCampoTexto4 = document.getElementById("precioventa").value;
+		var miCampoTexto5 = document.getElementById("stock").value;
+		if(miCampoTexto1.length == 0 || /^\s+$/.test(miCampoTexto1)){
+			alert('HAY CAMPOS VACIOS!');
+			return false;
+		}
+		if(miCampoTexto2.length == 0 || /^\s+$/.test(miCampoTexto2)){
+			alert('HAY CAMPOS VACIOS!');
+			return false;
+		}
+		if(miCampoTexto3.length == 0 || /^\s+$/.test(miCampoTexto3)){
+			alert('HAY CAMPOS VACIOS!');
+			return false;
+		}
+		if(miCampoTexto4.length == 0 || /^\s+$/.test(miCampoTexto4)){
+			alert('HAY CAMPOS VACIOS!');
+			return false;
+		}
+		if(miCampoTexto5.length == 0 || /^\s+$/.test(miCampoTexto5)){
+			alert('HAY CAMPOS VACIOS!!');
+			return false;
+		}
+
+ return true;
+ }
+      </script>
+     
+
+   
+</body>
+</html>
